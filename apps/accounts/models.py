@@ -12,7 +12,7 @@ class User(AbstractUser):
 
     preferred_music_service = models.CharField(
         max_length=20,
-        choice = [("spotify", "Spotify"), ("apple", "Apple"), ("youtube_music", "YouTube Music")],
+        choices = [("spotify", "Spotify"), ("apple", "Apple"), ("youtube_music", "YouTube Music")],
         null=True,
         blank=True
     )

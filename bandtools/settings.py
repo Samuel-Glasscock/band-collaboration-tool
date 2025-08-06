@@ -27,9 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# custom user module
-AUTH_USER_MODEL = "accounts.User"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,9 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # my defined apps
     'apps.accounts',
     'apps.bands',
     'apps.core',
+
+    # allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # allauth
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'bandtools.urls'
@@ -126,3 +134,32 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SITE_ID = 1
+
+# custom user module
+AUTH_USER_MODEL = 'accounts.User'
+
+# allauth constants 
+ACCOUNT_LOGIN_METHOD = {'username', 'email'}
+ACCOUNT_SIGNUP_FIELDS = [
+    "email*",
+    "username*",
+    "password1*",
+    "password2*",
+]
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+LOGIN_REDIRECT_URL = '/bands/' # pontetially have a band choose page if in multiple bands
+
+import os 
+# Google Provider Login
+SOCIALACCOUNT_PROVIDERS = {
+    "google" : {
+        "SCOPE" : ["profile", "email"],
+        "APP" : {
+            "client_id" : os.getenv("GOOGLE_CLIENT_ID"),
+            "secret" : os.getenv("GOOGLE_CLIENT_SECRET"),
+            "key" : ""
+        }
+    }
+}

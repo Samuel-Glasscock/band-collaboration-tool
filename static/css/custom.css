@@ -1,0 +1,71 @@
+:root {
+  --brand-primary:   #01BAEF;
+  --brand-secondary: #033F63;
+  --brand-accent:    #8DE969;
+  --brand-dark:      #28666E;
+  --brand-light:     #FBFBFF;
+}
+
+:root {
+  /* re-assign Bootstrap’s core colors to brand palette */
+  --bs-body-bg:    var(--brand-light);
+  --bs-body-color: var(--brand-dark);
+  --bs-primary:    var(--brand-primary);
+  --bs-secondary:  var(--brand-secondary);
+  --bs-success:    var(--brand-accent);
+  --bs-info:       var(--brand-secondary);
+  --bs-warning:    #f0ad4e;
+  --bs-danger:     #dc3545;
+  --bs-light:      #f8f9fa;
+  --bs-dark:       #212529;
+}
+
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', serif;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+
+/* Special accents/quotes—Caveat for handwritten style */
+blockquote, .fancy-accent {
+  font-family: 'Caveat', cursive;
+  font-size: 1.5rem;
+}
+
+/* Longer-form serif text—Libre Baskerville is for paragraphs */
+.article-body {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.navbar {
+  background: var(--brand-primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--brand-secondary);
+  border-color:     var(--brand-secondary);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, var(--brand-primary), var(--brand-secondary));
+  border-color: var(--brand-primary);
+}
+
+.hero-banner {
+  padding:      4rem 0;
+  background:   linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  color:        white;
+  text-align:   center;
+}

@@ -6,7 +6,7 @@ from .forms import BandCreateForm
 @login_required
 def my_bands(request):
     qs = Band.objects.filter(memberships__user=request.user)
-    return render(request, "bands/my_bands.html", {"bands": qs})
+    return render(request, "bands/my_band.html", {"bands": qs})
 
 @login_required
 def create_band(request):

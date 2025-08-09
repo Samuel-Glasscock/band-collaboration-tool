@@ -80,6 +80,14 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 WSGI_APPLICATION = 'bandtools.wsgi.application'
 
 
@@ -155,7 +163,13 @@ ACCOUNT_SIGNUP_FIELDS = [
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 LOGIN_REDIRECT_URL = '/bands/' # pontetially have a band choose page if in multiple bands
 
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 import os 
+from dotenv import load_dotenv, find_dotenv
+# Attempt to load in .env variables. If in dev, will load; if in deployment, will just be empty string and env should be supplied via host
+load_dotenv(find_dotenv())
+
 # Google Provider Login
 SOCIALACCOUNT_PROVIDERS = {
     "google" : {
@@ -167,3 +181,4 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+

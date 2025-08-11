@@ -152,28 +152,46 @@ SITE_ID = 1
 # custom user module
 AUTH_USER_MODEL = 'accounts.User'
 
-# allauth constants 
-ACCOUNT_LOGIN_METHOD = {'username', 'email'}
-ACCOUNT_SIGNUP_FIELDS = [
-    "email*",
-    "username*",
-    "password1*",
-    "password2*",
-]
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-LOGIN_REDIRECT_URL = '/bands/' # pontetially have a band choose page if in multiple bands
-
 SOCIALACCOUNT_LOGIN_ON_GET = True
+
+ACCOUNT_FORMS = {
+    "login": "apps.accounts.forms.MyLoginForm",
+    "signup": "apps.accounts.forms.MySignupForm",
+}
+
+AUTH_PASSWORD_VALIDATORS = [
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", "OPTIONS": {"min_length": 8}},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+]
+
+# ---- Allauth core behavior
+ACCOUNT_AUTHENTICATION_METHOD = "email" # login by email only
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False # hide username on signup, allauth will auto-generate a unique username behind the scenes
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+LOGIN_REDIRECT_URL = '/bands/' # pontetially have a band choose page if in multiple bands
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+
+# ---- Google provider (expand scopes when adding Calendar)
+SOCIALACCOUNT_STORE_TOKENS = True
 
 import os 
 from dotenv import load_dotenv, find_dotenv
 # Attempt to load in .env variables. If in dev, will load; if in deployment, will just be empty string and env should be supplied via host
 load_dotenv(find_dotenv())
-
-# Google Provider Login
 SOCIALACCOUNT_PROVIDERS = {
     "google" : {
         "SCOPE" : ["profile", "email"],
+        # When adding Calendar access later, extend scopes:
+        # "SCOPE": ["openid", "email", "profile", "https://www.googleapis.com/auth/calendar.readonly"],
+        # And optionally force re-consent when changing scopes in production:
+        # "AUTH_PARAMS": {"prompt": "consent"}
         "APP" : {
             "client_id" : os.getenv("GOOGLE_CLIENT_ID"),
             "secret" : os.getenv("GOOGLE_CLIENT_SECRET"),
@@ -181,4 +199,3 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-

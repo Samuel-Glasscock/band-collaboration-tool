@@ -69,3 +69,25 @@ blockquote, .fancy-accent {
   color:        white;
   text-align:   center;
 }
+
+.card { border-radius: 1rem; }
+
+/* Being overriden by BS's secondary button light, left to resolve later */
+/* Google sign in */
+.gsi-material-button {
+  position: relative;
+  background: #fff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 4px;     /* Google spec */
+  font-weight: 500;
+}
+.gsi-material-button:hover { background: #DE3E1F !important;}
+.gsi-material-button:active { background: #eee; }
+.gsi-material-button-icon { display: inline-flex; }
+.gsi-material-button-contents { line-height: 1; }
+.gsi-material-button-state {
+  position: absolute; inset: 0; border-radius: inherit;
+}

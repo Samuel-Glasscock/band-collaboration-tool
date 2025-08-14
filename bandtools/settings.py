@@ -175,8 +175,9 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
-LOGIN_REDIRECT_URL = '/bands/' # pontetially have a band choose page if in multiple bands
-ACCOUNT_LOGOUT_REDIRECT_URL = "post_login_router"
+from django.urls import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('bands:post_login_router') # pontetially have a band choose page if in multiple bands
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 # ---- Google provider (expand scopes when adding Calendar)
 SOCIALACCOUNT_STORE_TOKENS = True

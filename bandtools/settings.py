@@ -176,7 +176,7 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 LOGIN_REDIRECT_URL = '/bands/' # pontetially have a band choose page if in multiple bands
-ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "post_login_router"
 
 # ---- Google provider (expand scopes when adding Calendar)
 SOCIALACCOUNT_STORE_TOKENS = True

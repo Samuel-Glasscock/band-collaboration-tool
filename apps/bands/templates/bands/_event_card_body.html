@@ -1,0 +1,6 @@
+{% if e %}
+  <p class="mb-1"><strong>{{ e.title }}</strong></p>
+  <small>{{ e.starts_at|date:"D, M j, g:i a" }}{% if e.location %} • {{ e.location }}{% endif %}</small>
+{% else %}
+  <small>Nothing scheduled.</small>
+{% endif %}

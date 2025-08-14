@@ -1,0 +1,54 @@
+<div id="bandCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for photo in photos %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ photo.caption|default:band.name }}">
+        {% if photo.caption %}
+          <div class="carousel-caption d-none d-md-block">
+            <p>{{ photo.caption }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% empty %}
+      <div class="p-5 text-center bg-light rounded">No photos yet.</div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#bandCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#bandCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Upcoming</h5>
+        {% if upcoming %}
+          <p class="mb-1"><strong>{{ upcoming.title }}</strong></p>
+          <small>{{ upcoming.starts_at|date:"D, M j, g:i a" }}{% if upcoming.location %} • {{ upcoming.location }}{% endif %}</small>
+        {% else %}
+          <small>No upcoming events.</small>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Next Practice</h5>
+        {% include "bands/_event_card_body.html" with e=next_practice %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Next Gig</h5>
+        {% include "bands/_event_card_body.html" with e=next_gig %}
+      </div>
+    </div>
+  </div>
+</div>
